@@ -55,4 +55,11 @@ public class StringCalculatorKataTest {
         int sum = StringCalculatorKata.add(StringToAdd);
         assertEquals(expectedValue,sum);
     }
+
+    @ParameterizedTest (name = "{0} should return {1}")
+    @CsvSource( value = {"1\\n2,3:6", "3\\n8,9\\n4,6:30"},  delimiter = ':')
+    void addSeveralPositiveIntegers_NewLine(String StringToAdd,  int expectedValue) {
+        int sum = StringCalculatorKata.add(StringToAdd);
+        assertEquals(expectedValue,sum);
+    }
 }
