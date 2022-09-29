@@ -9,7 +9,7 @@ public class StringCalculatorKata {
             for (String s : parsedString) {
                 result += Integer.parseInt(s);
             }
-        }catch(NumberFormatException e){System.out.println("Not a number");}
+        }catch(NumberFormatException e){System.out.println("Not a number ");}
         return result;
     }
 }

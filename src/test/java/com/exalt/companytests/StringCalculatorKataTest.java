@@ -1,49 +1,58 @@
 package com.exalt.companytests;
 
 import com.exalt.company.StringCalculatorKata;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.*;
+import org.junit.jupiter.params.provider.*;
+import java.time.Duration;
+import java.time.Instant;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 
 public class StringCalculatorKataTest {
-    @Test
-    void addPositiveInteger(){
-        String StringToAdd = "2";
-        StringCalculatorKata StringCalculatorKata = new StringCalculatorKata();
 
-        int sum = StringCalculatorKata.add(StringToAdd);
+    private StringCalculatorKata StringCalculatorKata;
+    private static Instant timerStartExecution;
 
-        assertEquals(2,sum);
+    @BeforeAll
+    public static void startingTimer(){
+        timerStartExecution=Instant.now();
     }
 
-    @Test
-    void addTwoPositiveIntegers(){
-        String StringToAdd = "2,3";
-        StringCalculatorKata StringCalculatorKata = new StringCalculatorKata();
-
-        int sum = StringCalculatorKata.add(StringToAdd);
-
-        assertEquals(5,sum);
+    @AfterAll
+    public static void endingTimer(){
+        Instant timerStopExecution = Instant.now();
+        System.out.println("Duration of tests : " + Duration.between(timerStartExecution,timerStopExecution).toMillis() + "ms");
     }
 
-    @Test
-    void addNullString(){
-        String StringToAdd = " ";
-        StringCalculatorKata StringCalculatorKata = new StringCalculatorKata();
+    @BeforeEach
+    public void initStringCalculator(){
+        StringCalculatorKata = new StringCalculatorKata();
+    }
 
+    @AfterEach
+    public void undefStringCalculator(){
+        StringCalculatorKata = null;
+    }
+    @ParameterizedTest (name = "{0} should return {1}")
+    @CsvSource( value = {"3:3" , "1,2:3" , "1,2,3,1:7"},  delimiter = ':')
+    void addPositiveIntegers(String StringToAdd, int expectedValue){
         int sum = StringCalculatorKata.add(StringToAdd);
+        assertEquals(expectedValue,sum);
+    }
 
+    @ParameterizedTest (name = "{0} should return 0")
+    @ValueSource (strings = {"", " "})
+    void addNullString_EmptyString(String StringToAdd){
+        int sum = StringCalculatorKata.add(StringToAdd);
         assertEquals(0,sum);
     }
 
-    @Test
-    void addEmptyString(){
-        String StringToAdd = "";
-        StringCalculatorKata StringCalculatorKata = new StringCalculatorKata();
-
+    @ParameterizedTest (name = "{0} should return {1}")
+    @CsvSource( value = {"3,8,9,4,6:30" , "1,3,5,7,9,2,4:31" , "1,2,3,4,5,1,2,3,4,5,9,8:47"},  delimiter = ':')
+    void addSeveralPositiveIntegers_Five_Seven_Twelve(String StringToAdd,  int expectedValue) {
         int sum = StringCalculatorKata.add(StringToAdd);
-
-        assertEquals(0,sum);
+        assertEquals(expectedValue,sum);
     }
 }
