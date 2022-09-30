@@ -62,4 +62,11 @@ public class StringCalculatorKataTest {
         int sum = StringCalculatorKata.add(StringToAdd);
         assertEquals(expectedValue,sum);
     }
+
+    @ParameterizedTest (name = "{0} should return 3")
+    @ValueSource(strings = {"//;\\n1;2"})
+    void addSeveralPositiveIntegers_DefinedDelimiter(String StringToAdd) {
+        int sum = StringCalculatorKata.add(StringToAdd);
+        assertEquals(3, sum);
+    }
 }
