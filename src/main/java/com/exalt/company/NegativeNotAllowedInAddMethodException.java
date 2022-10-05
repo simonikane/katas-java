@@ -6,3 +6,4 @@ public class NegativeNotAllowedInAddMethodException extends Exception {
         super(message);
     }
 }
+

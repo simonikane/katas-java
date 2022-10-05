@@ -115,16 +115,6 @@ public class StringCalculatorKataTest {
         assertEquals(3, sum);
     }
 
-    /*
-      Testing to check is negative number exception is launched
-      Delimiter is ;
-     */
-/*
-    @ParameterizedTest (name = "{0} should send exception")
-    @ValueSource(strings = {"//;\\n-1;2"})
-    void addSeveralNegativeIntegers(String StringToAdd) {
-        int sum = StringCalculatorKata.add(StringToAdd);
-        assertEquals(0, sum);
-    }
-*/
+
+    
 }
